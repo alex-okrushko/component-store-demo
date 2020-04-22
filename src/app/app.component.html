@@ -1,0 +1,9 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="demo-buttons">
+  <button mat-raised-button [routerLink]="['/demo1']" routerLinkActive #rla1="routerLinkActive" [color]="rla1.isActive ? 'primary' : 'secondary'">Demo 1</button>
+  <button mat-raised-button [routerLink]="['/demo2']" routerLinkActive #rla2="routerLinkActive" [color]="rla2.isActive ? 'primary' : 'secondary'">Demo 2</button>
+  <button mat-flat-button [routerLink]="['/demo3']" routerLinkActive #rla3="routerLinkActive" [color]="rla3.isActive ? 'primary' : 'secondary'">Demo 3</button>
+</div>
+<section class="demo-area">
+  <router-outlet></router-outlet>
+</section>
