@@ -11,47 +11,7 @@ interface ComponentState {
 @Component({
   selector: 'book1',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      :host {
-        display: flex;
-        max-width: 260px;
-        flex-direction: column;
-        border: green 1px solid;
-        border-radius: 10px;
-        padding: 4px;
-      }
-      .pageCount {
-        display: flex;
-        align-items: baseline;
-      }
-      .add {
-        margin-left: 10px;
-      }
-      svg {
-        fill: lightgrey;
-      }
-      .book-image {
-        position: relative;
-      }
-      .display-title {
-        position: absolute;
-        color: #7b1fa2;
-        top: 100px;
-        left: 40px;
-        width: 160px;
-        overflow-wrap: break-word;
-      }
-      .display-page-count {
-        position: absolute;
-        top: 240px;
-        left: 40px;
-        width: 160px;
-        overflow-wrap: break-word;
-        color: rgba(0, 0, 0, 0.6);
-      }
-    `,
-  ],
+  styleUrls: ['./book1.scss'],
   template: ` <mat-form-field color="primary" appearance="outline">
       <mat-label>Title</mat-label>
       <input
@@ -61,7 +21,6 @@ interface ComponentState {
         (ngModelChange)="updateTitle($event)"
       />
     </mat-form-field>
-    <br />
     <div class="pageCount">
       <mat-form-field color="primary" appearance="outline">
         <mat-label>Number of pages</mat-label>
@@ -70,6 +29,8 @@ interface ComponentState {
           autocomplete="off"
           [ngModel]="getPageCount() | async"
           (ngModelChange)="updatePageCount($event)"
+          type="number"
+          min="0"
         />
       </mat-form-field>
       <button
@@ -84,8 +45,9 @@ interface ComponentState {
     <div class="book-image">
       <svg
         width="max-width"
-        height="318"
+        height="196"
         viewBox="0 0 40 49"
+        preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

@@ -1,0 +1,40 @@
+:host {
+  font-size: 12px;
+  display: flex;
+  max-width: 260px;
+  flex-direction: column;
+  border: green 1px solid;
+  border-radius: 10px;
+  padding: 4px;
+}
+.pageCount {
+  display: flex;
+  align-items: baseline;
+}
+.add {
+  margin-left: 10px;
+}
+svg {
+  fill: lightgrey;
+}
+.book-image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.display-title {
+  position: absolute;
+  color: #7b1fa2;
+  top: 50px;
+  left: 40px;
+  width: 160px;
+  overflow-wrap: break-word;
+}
+.display-page-count {
+  position: absolute;
+  top: 150px;
+  left: 40px;
+  width: 160px;
+  overflow-wrap: break-word;
+  color: rgba(0, 0, 0, 0.6);
+}
