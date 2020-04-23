@@ -4,12 +4,6 @@ export interface Author {
   bookIds: [];
 }
 
-export interface Book {
-  bookId?: string;
-  title: string;
-  pageCount: number;
-}
-
 export const bookTitles = [
   'Giants And Owls',
   'Serpent Without Courage',

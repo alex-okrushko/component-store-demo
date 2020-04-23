@@ -1,15 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
-import { bookTitles, authorNames } from '../fake_data';
-
-interface ComponentState {
-  author: string;
-  title: string;
-  pageCount: number;
-}
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Book2Store, ComponentState } from './book2.store';
 
 @Component({
-  selector: 'book1',
+  selector: 'book2',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
   template: ` <mat-form-field color="primary" appearance="outline">
@@ -65,7 +58,12 @@ interface ComponentState {
   </pre
     >`,
 })
-export class Book1Component extends ComponentStore<ComponentState> {
+export class Book2Component extends Book2Store {
+  @Input()
+  set book(initState: ComponentState) {
+    this.setState(() => initState);
+  }
+
   readonly localState$ = this.state$;
 
   readonly title$ = this.select((state) => state.title);
@@ -78,7 +76,7 @@ export class Book1Component extends ComponentStore<ComponentState> {
   readonly pageCount$ = this.select((state) => state.pageCount);
 
   constructor() {
-    super({ author: authorNames[0], title: bookTitles[0], pageCount: 0 });
+    super();
   }
 
   updateTitle(title: string) {

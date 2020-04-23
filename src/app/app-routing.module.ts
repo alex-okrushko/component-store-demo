@@ -9,14 +9,22 @@ import {
   Demo2WithServiceModule,
 } from './demo2-with-service/demo2-with-service.component';
 import { ChooserComponent } from './chooser.component';
+import {
+  Demo3WithServiceProvidedComponent,
+  Demo3WithServiceProvidedModule,
+} from './demo3-with-service-provided/demo3-with-service-provided.component';
+import {
+  Demo4WithIdModule,
+  Demo4WithIdComponent,
+} from './demo4-with-id/demo4-with-id.component';
 
 const routes: Routes = [
   { path: 'demo1', component: Demo1ExtendsComponentStoreComponent },
   { path: 'demo2', component: Demo2WithServiceComponent },
-  { path: 'demo3', component: Demo1ExtendsComponentStoreComponent },
-  { path: 'demo4', component: Demo1ExtendsComponentStoreComponent },
-  { path: 'demo5', component: Demo1ExtendsComponentStoreComponent },
-  { path: 'demo6', component: Demo1ExtendsComponentStoreComponent },
+  { path: 'demo3', component: Demo3WithServiceProvidedComponent },
+  { path: 'demo4', component: Demo4WithIdComponent },
+  { path: 'demo5', component: ChooserComponent },
+  { path: 'demo6', component: ChooserComponent },
   {
     path: 'choose',
     component: ChooserComponent,
@@ -34,6 +42,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     Demo1ExtendsComponentStoreModule,
     Demo2WithServiceModule,
+    Demo3WithServiceProvidedModule,
+    Demo4WithIdModule,
   ],
   exports: [RouterModule],
 })

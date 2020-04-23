@@ -8,21 +8,21 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Book2Component } from './book2.component';
+import { Book3Component } from './book3.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ComponentState } from './book2.store';
+import { ComponentState } from './book3.store';
 import { authorNames, bookTitles } from '../fake_data';
 
 @Component({
-  selector: 'app-demo2-with-service',
-  template: `<book2 [book]="initialBook"></book2>`,
+  selector: 'app-demo3-with-service-provided',
+  template: `<book3 [book]="initialBook"></book3>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Demo2WithServiceComponent implements OnInit {
+export class Demo3WithServiceProvidedComponent implements OnInit {
   initialBook: ComponentState = {
-    author: authorNames[1],
-    title: bookTitles[1],
+    author: authorNames[2],
+    title: bookTitles[2],
     pageCount: 100,
   };
   constructor() {}
@@ -39,7 +39,7 @@ export class Demo2WithServiceComponent implements OnInit {
     MatInputModule,
     MatFormFieldModule,
   ],
-  exports: [Demo2WithServiceComponent],
-  declarations: [Demo2WithServiceComponent, Book2Component],
+  exports: [Demo3WithServiceProvidedComponent],
+  declarations: [Demo3WithServiceProvidedComponent, Book3Component],
 })
-export class Demo2WithServiceModule {}
+export class Demo3WithServiceProvidedModule {}

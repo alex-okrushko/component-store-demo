@@ -8,23 +8,18 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Book2Component } from './book2.component';
+import { Book5Component } from './book5.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ComponentState } from './book2.store';
-import { authorNames, bookTitles } from '../fake_data';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-demo2-with-service',
-  template: `<book2 [book]="initialBook"></book2>`,
+  selector: 'app-demo5-author',
+  template: `<book5 [id]="bookId"></book5>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Demo2WithServiceComponent implements OnInit {
-  initialBook: ComponentState = {
-    author: authorNames[1],
-    title: bookTitles[1],
-    pageCount: 100,
-  };
+export class Demo5AuthorComponent implements OnInit {
+  bookId = 4;
   constructor() {}
 
   ngOnInit(): void {}
@@ -38,8 +33,9 @@ export class Demo2WithServiceComponent implements OnInit {
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
   ],
-  exports: [Demo2WithServiceComponent],
-  declarations: [Demo2WithServiceComponent, Book2Component],
+  exports: [Demo5AuthorComponent],
+  declarations: [Demo5AuthorComponent, Book5Component],
 })
-export class Demo2WithServiceModule {}
+export class Demo5AuthorModule {}

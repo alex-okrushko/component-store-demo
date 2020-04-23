@@ -9,6 +9,9 @@ import { Component } from '@angular/core';
         display: flex;
         justify-content: center;
       }
+      h2 {
+        margin: 0;
+      }
     `,
   ],
 })

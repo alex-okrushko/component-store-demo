@@ -161,6 +161,51 @@ current state and an argument object) and returns a new instance of the
     );
     return () => distinctSharedObservable$;
   }
+
+  // Alternative API, just return Observable
+  select<R>(projector: (s: T) => R): Observable<R>;
+  select<R, S1>(s1: Observable<S1>, projector: (s1: S1) => R): Observable<R>;
+  select<R, S1, S2>(
+    s1: Observable<S1>,
+    s2: Observable<S2>,
+    projector: (s1: S1, s2: S2) => R
+  ): Observable<R>;
+  select<R, S1, S2, S3>(
+    s1: Observable<S1>,
+    s2: Observable<S2>,
+    s3: Observable<S3>,
+    projector: (s1: S1, s2: S2, s3: S3) => R
+  ): Observable<R>;
+  select<R, S1, S2, S3, S4>(
+    s1: Observable<S1>,
+    s2: Observable<S2>,
+    s3: Observable<S3>,
+    s4: Observable<S4>,
+    projector: (s1: S1, s2: S2, s3: S3, s4: S4) => R
+  ): Observable<R>;
+  select<R>(...args: any[]): Observable<R> {
+    let observable$: Observable<R>;
+    const projector: (...args: any[]) => R = args.pop();
+    if (!args.length) {
+      // If there's only one argument, it's just a map function.
+      observable$ = this.stateSubject$.pipe(map(projector));
+    } else {
+      // If there are multiple arguments, we're chaining selectors, so we need
+      // to take the combineLatest of them before calling the map function.
+      observable$ = combineLatest(args).pipe(
+        map((args: any[]) => projector(...args))
+      );
+    }
+    const distinctSharedObservable$ = observable$.pipe(
+      distinctUntilChanged(),
+      shareReplay({
+        refCount: true,
+        bufferSize: 1,
+      }),
+      takeUntil(this.destroy$)
+    );
+    return distinctSharedObservable$;
+  }
 }
 
 function isObservable<V>(
