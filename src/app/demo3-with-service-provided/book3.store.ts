@@ -22,21 +22,13 @@ export class Book3Store extends ComponentStore<BookState> {
   );
   readonly pageCount$ = this.select((state) => state.pageCount);
 
-  /** Creates a View Model for Book3 Component */
-  getBookViewModel() {
-    return this.select(
-      this.title$,
-      this.displayTitle$,
-      this.pageCount$,
-      this.state$,
-      (title, displayTitle, pageCount, localState) => ({
-        title,
-        displayTitle,
-        pageCount,
-        localState,
-      })
-    );
-  }
+  // (1) explain this service
+  // (2) create a ViewModel {
+  //   title,
+  //   displayTitle,
+  //   pageCount,
+  //   localState,
+  // }
 
   setBook(book: BookState) {
     this.setState(() => book);

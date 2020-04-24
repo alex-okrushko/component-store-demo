@@ -24,7 +24,7 @@ export class Author5Store extends ComponentStore<AuthorState> {
     }));
   }
 
-  readonly name$ = this.select((state) => state.name);
+  // (1) create name$ selector
 
   createNewBook = this.updater((state) => ({
     ...state,

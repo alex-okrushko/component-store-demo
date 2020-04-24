@@ -11,7 +11,8 @@ import { authorNames, bookTitles } from '../fake_data';
 
 @Component({
   selector: 'app-demo2-with-service',
-  template: `<book2 [book]="initialBook"></book2>`,
+  template: '',
+  // template: `<book2 [book]="initialBook"></book2>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Demo2WithServiceComponent {

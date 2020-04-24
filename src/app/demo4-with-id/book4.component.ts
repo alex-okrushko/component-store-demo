@@ -37,9 +37,9 @@ import { Book4Store } from './book4.store';
       </button>
     </div>
 
-    <div *ngIf="vm.status == 'loading'; else bookImage" class="book-spacer">
+    <!-- (8) <div *ngIf="vm.status == 'loading'; else bookImage" class="book-spacer">
       <mat-spinner></mat-spinner>
-    </div>
+    </div> -->
     <ng-template #bookImage>
       <div class="book-image">
         <svg
@@ -69,7 +69,7 @@ import { Book4Store } from './book4.store';
 export class Book4Component {
   @Input()
   set id(bookId: string | undefined) {
-    this.bookStore.getBook(bookId);
+    // (7) use the effect
   }
 
   readonly vm$ = this.bookStore.getBookViewModel();

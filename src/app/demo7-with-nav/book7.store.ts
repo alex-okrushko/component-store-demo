@@ -19,10 +19,7 @@ export class Book7Store extends ComponentStore<BookState> {
   ) {
     super({ pageCount: 0, status: 'unsaved' });
 
-    const bookId$: Observable<string> = activatedRoute.paramMap.pipe(
-      map((params) => params.get('bookId') || '0')
-    );
-    this.getBook(bookId$);
+    // (2) wire getBook with observable from activatedRoute.paramMap
   }
 
   readonly title$ = this.select((state) => state.title);

@@ -77,18 +77,14 @@ export class Book8Component {
     this.bookStore.getBook(bookId);
   }
 
-  readonly subscription: Subscription;
+  // (3) readonly subscription: Subscription;
 
   readonly vm$ = this.bookStore.getBookViewModel();
 
-  applesTitle$ = timer(1000, 3000).pipe(mapTo('apples'));
-  orangesTitle$ = timer(2000, 3000).pipe(mapTo('oranges'));
-  bananasTitle$ = timer(3000, 3000).pipe(mapTo('bananas'));
+  // (1) create applesTitle$ orangeTitle$ bananasTitle
 
   constructor(private readonly bookStore: Book8Store) {
-    this.bookStore.updateTitle(this.applesTitle$);
-    this.bookStore.updateTitle(this.orangesTitle$);
-    this.subscription = this.bookStore.updateTitle(this.bananasTitle$);
+    // (2) wire them to update the title
   }
 
   updateTitle(title: string) {
@@ -104,6 +100,6 @@ export class Book8Component {
   }
 
   stopBananas() {
-    this.subscription.unsubscribe();
+    // (4) unsubscribe
   }
 }

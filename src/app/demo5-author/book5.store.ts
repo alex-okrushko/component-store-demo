@@ -18,10 +18,7 @@ export class Book4Store extends ComponentStore<BookState> {
   ) {
     super({ pageCount: 0, status: 'unsaved' });
 
-    this.updater((state: BookState, author: string) => ({
-      ...state,
-      author,
-    }))(this.author5Store.name$);
+    // (2) updater listing to name$
   }
 
   readonly title$ = this.select((state) => state.title);

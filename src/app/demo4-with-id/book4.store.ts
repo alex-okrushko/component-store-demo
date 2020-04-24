@@ -6,13 +6,13 @@ import { BookService } from '../book.service';
 
 type Status = 'unsaved' | 'loading' | 'loaded';
 export interface BookState extends Book {
-  status: Status;
+  //(1) introduce status
 }
 
 @Injectable()
 export class Book4Store extends ComponentStore<BookState> {
   constructor(private readonly bookService: BookService) {
-    super({ pageCount: 0, status: 'unsaved' });
+    super({ pageCount: 0 /*(2) 'unsaved' */ });
   }
 
   readonly title$ = this.select((state) => state.title);
@@ -36,11 +36,12 @@ export class Book4Store extends ComponentStore<BookState> {
         displayTitle,
         pageCount,
         localState,
-        status: localState.status,
+        // (3) status: localState.status,
       })
     );
   }
 
+  // (4) explain updaters
   readonly setBookId = this.updater((state: BookState, id?: string) => ({
     ...state,
     id,
@@ -68,21 +69,18 @@ export class Book4Store extends ComponentStore<BookState> {
     pageCount: (state.pageCount || 0) + 1,
   }));
 
-  private readonly updateStatus = this.updater(
-    (state: BookState, status: Status) => ({
-      ...state,
-      status,
-    })
-  );
+  // (5) updateStatus updater/reducer
 
-  readonly getBook = this.effect<string | undefined>((ids$) =>
-    ids$.pipe(
-      filter((id): id is string => !!id),
-      tap(() => this.updateStatus('loading')),
-      switchMap((id) =>
-        this.bookService.getBook(id).pipe(tap((book) => this.setBook(book)))
-      ),
-      tap(() => this.updateStatus('loaded'))
-    )
-  );
+  // (6) create getBookEffect
+
+  // readonly getBook = this.effect<string | undefined>((ids$) =>
+  //   ids$.pipe(
+  //     filter((id): id is string => !!id),
+  //     tap(() => this.updateStatus('loading')),
+  //     switchMap((id) =>
+  //       this.bookService.getBook(id).pipe(tap((book) => this.setBook(book)))
+  //     ),
+  //     tap(() => this.updateStatus('loaded'))
+  //   )
+  // );
 }

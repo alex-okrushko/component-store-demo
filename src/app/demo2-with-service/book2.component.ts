@@ -5,7 +5,8 @@ import { Book2Store, BookState } from './book2.store';
   selector: 'book2',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
-  template: ` <mat-form-field color="primary" appearance="outline">
+  template: `
+    <!-- <mat-form-field color="primary" appearance="outline">
       <mat-label>Title</mat-label>
       <input
         matInput
@@ -56,41 +57,34 @@ import { Book2Store, BookState } from './book2.store';
       Local State:
   {{ localState$ | async | json }}
   </pre
-    >`,
+    > -->
+  `,
 })
-export class Book2Component extends Book2Store {
-  @Input()
-  set book(initState: BookState) {
-    this.setState(() => initState);
-  }
-
-  readonly localState$ = this.state$;
-
-  readonly title$ = this.select((state) => state.title);
-  readonly author$ = this.select((state) => state.author);
-  readonly displayTitle$ = this.select(
-    this.title$,
-    this.author$,
-    (title, author) => author && `${title} by ${author}`
-  );
-  readonly pageCount$ = this.select((state) => state.pageCount);
-
-  constructor() {
-    super();
-  }
-
-  updateTitle(title: string) {
-    this.setState((state) => ({ ...state, title }));
-  }
-
-  updatePageCount(pageCount: string) {
-    this.setState((state) => ({ ...state, pageCount: Number(pageCount) }));
-  }
-
-  increasePageCount() {
-    this.setState((state) => ({
-      ...state,
-      pageCount: (state.pageCount || 0) + 1,
-    }));
-  }
+export class Book2Component {
+  // // (1) extends Book2Store
+  // // (2) Input for initState: BookState
+  // readonly localState$ = this.state$;
+  // readonly title$ = this.select((state) => state.title);
+  // readonly author$ = this.select((state) => state.author);
+  // readonly displayTitle$ = this.select(
+  //   this.title$,
+  //   this.author$,
+  //   (title, author) => author && `${title} by ${author}`
+  // );
+  // readonly pageCount$ = this.select((state) => state.pageCount);
+  // constructor() {
+  //   super();
+  // }
+  // updateTitle(title: string) {
+  //   this.setState((state) => ({ ...state, title }));
+  // }
+  // updatePageCount(pageCount: string) {
+  //   this.setState((state) => ({ ...state, pageCount: Number(pageCount) }));
+  // }
+  // increasePageCount() {
+  //   this.setState((state) => ({
+  //     ...state,
+  //     pageCount: (state.pageCount || 0) + 1,
+  //   }));
+  // }
 }

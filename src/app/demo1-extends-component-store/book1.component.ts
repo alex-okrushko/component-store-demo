@@ -12,7 +12,8 @@ interface BookState {
   selector: 'book1',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
-  template: ` <mat-form-field color="primary" appearance="outline">
+  template: `
+    <!-- <mat-form-field color="primary" appearance="outline">
       <mat-label>Title</mat-label>
       <input
         matInput
@@ -63,36 +64,34 @@ interface BookState {
       Local State:
   {{ localState$ | async | json }}
   </pre
-    >`,
+    > -->
+  `,
 })
-export class Book1Component extends ComponentStore<BookState> {
-  readonly localState$ = this.state$;
+export class Book1Component {
+  // (1) extend
+  // (3) localState$ get entire state
 
-  readonly title$ = this.select((state) => state.title);
-  readonly author$ = this.select((state) => state.author);
-  readonly displayTitle$ = this.select(
-    this.title$,
-    this.author$,
-    (title, author) => author && `${title} by ${author}`
-  );
-  readonly pageCount$ = this.select((state) => state.pageCount);
+  // (4) create title$
+  // (5) create author$
+  // (6) create displayTitle$ - shows combinations
+  //(title, author) => author && `${title} by ${author}`
+
+  // readonly pageCount$ = this.select((state) => state.pageCount);
 
   constructor() {
-    super({ author: authorNames[0], title: bookTitles[0], pageCount: 0 });
+    // (2) initialize state
+    // { author: authorNames[0], title: bookTitles[0], pageCount: 0 }
   }
 
   updateTitle(title: string) {
-    this.setState((state) => ({ ...state, title }));
+    // (7) set Title using this.setState
   }
 
   updatePageCount(pageCount: string) {
-    this.setState((state) => ({ ...state, pageCount: Number(pageCount) }));
+    // (8) this.setState((state) => ({ ...state, pageCount: Number(pageCount) }));
   }
 
   increasePageCount() {
-    this.setState((state) => ({
-      ...state,
-      pageCount: (state.pageCount || 0) + 1,
-    }));
+    // (9) set pageCount pageCount: (state.pageCount || 0) + 1
   }
 }

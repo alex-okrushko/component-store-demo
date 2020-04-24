@@ -5,7 +5,8 @@ import { Book3Store, BookState } from './book3.store';
   selector: 'book3',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
-  template: ` <ng-container *ngIf="vm$ | async as vm">
+  template: `
+    <!-- <ng-container *ngIf="vm$ | async as vm">
     <mat-form-field color="primary" appearance="outline">
       <mat-label>Title</mat-label>
       <input
@@ -57,7 +58,8 @@ import { Book3Store, BookState } from './book3.store';
       Local State:
   {{ vm.localState | json }}
   </pre>
-  </ng-container>`,
+  </ng-container> -->
+  `,
   providers: [Book3Store],
 })
 export class Book3Component {
@@ -66,7 +68,7 @@ export class Book3Component {
     this.bookStore.setBook(initState);
   }
 
-  readonly vm$ = this.bookStore.getBookViewModel();
+  // (3) readonly vm$
 
   constructor(private readonly bookStore: Book3Store) {}
 

@@ -67,6 +67,7 @@ import { Book7Store } from './book7.store';
   providers: [Book7Store],
 })
 export class Book7Component {
+  // (1) no Input here
   readonly vm$ = this.bookStore.getBookViewModel();
 
   constructor(private readonly bookStore: Book7Store) {}
