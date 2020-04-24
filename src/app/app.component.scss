@@ -2,6 +2,11 @@
   display: flex;
   justify-content: space-evenly;
   margin: 40px;
+  flex-wrap: wrap;
+
+  button {
+    margin: 8px;
+  }
 }
 
 .demo-area {
