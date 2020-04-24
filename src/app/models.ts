@@ -4,3 +4,9 @@ export interface Book {
   title?: string;
   pageCount: number;
 }
+
+export interface Author {
+  id: string;
+  name: string;
+  bookIds?: string[];
+}

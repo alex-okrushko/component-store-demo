@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Book4Store } from './book5.store';
+import { Book7Store } from './book7.store';
 
 @Component({
-  selector: 'book5',
+  selector: 'book7',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
   template: ` <ng-container *ngIf="vm$ | async as vm">
@@ -60,21 +60,16 @@ import { Book4Store } from './book5.store';
       </div>
     </ng-template>
     <pre>
-      Local Book State:
+      Local State:
   {{ vm.localState | json }}
   </pre>
   </ng-container>`,
-  providers: [Book4Store],
+  providers: [Book7Store],
 })
-export class Book5Component {
-  @Input()
-  set id(bookId: string | undefined) {
-    this.bookStore.getBook(bookId);
-  }
-
+export class Book7Component {
   readonly vm$ = this.bookStore.getBookViewModel();
 
-  constructor(private readonly bookStore: Book4Store) {}
+  constructor(private readonly bookStore: Book7Store) {}
 
   updateTitle(title: string) {
     this.bookStore.updateTitle(title);

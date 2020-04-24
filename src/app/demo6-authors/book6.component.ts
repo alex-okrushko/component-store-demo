@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Book4Store } from './book5.store';
+import { Book4Store } from './book6.store';
 
 @Component({
-  selector: 'book5',
+  selector: 'book6',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
   template: ` <ng-container *ngIf="vm$ | async as vm">
@@ -66,7 +66,7 @@ import { Book4Store } from './book5.store';
   </ng-container>`,
   providers: [Book4Store],
 })
-export class Book5Component {
+export class Book6Component {
   @Input()
   set id(bookId: string | undefined) {
     this.bookStore.getBook(bookId);

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  NgModule,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { Book1Component } from './book1.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,11 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   template: `<book1></book1>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Demo1ExtendsComponentStoreComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class Demo1ExtendsComponentStoreComponent {}
 
 @NgModule({
   imports: [

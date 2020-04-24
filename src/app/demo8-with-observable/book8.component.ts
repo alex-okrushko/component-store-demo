@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Book4Store } from './book5.store';
+import { Book8Store } from './book8.store';
+import { timer, Subscription } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
 @Component({
-  selector: 'book5',
+  selector: 'book8',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./book.scss'],
   template: ` <ng-container *ngIf="vm$ | async as vm">
@@ -40,6 +42,9 @@ import { Book4Store } from './book5.store';
     <div *ngIf="vm.status == 'loading'; else bookImage" class="book-spacer">
       <mat-spinner></mat-spinner>
     </div>
+    <button mat-raised-button (click)="stopBananas()">
+      Stop Bananas!!!
+    </button>
     <ng-template #bookImage>
       <div class="book-image">
         <svg
@@ -60,21 +65,31 @@ import { Book4Store } from './book5.store';
       </div>
     </ng-template>
     <pre>
-      Local Book State:
+      Local State:
   {{ vm.localState | json }}
   </pre>
   </ng-container>`,
-  providers: [Book4Store],
+  providers: [Book8Store],
 })
-export class Book5Component {
+export class Book8Component {
   @Input()
   set id(bookId: string | undefined) {
     this.bookStore.getBook(bookId);
   }
 
+  readonly subscription: Subscription;
+
   readonly vm$ = this.bookStore.getBookViewModel();
 
-  constructor(private readonly bookStore: Book4Store) {}
+  applesTitle$ = timer(1000, 3000).pipe(mapTo('apples'));
+  orangesTitle$ = timer(2000, 3000).pipe(mapTo('oranges'));
+  bananasTitle$ = timer(3000, 3000).pipe(mapTo('bananas'));
+
+  constructor(private readonly bookStore: Book8Store) {
+    this.bookStore.updateTitle(this.applesTitle$);
+    this.bookStore.updateTitle(this.orangesTitle$);
+    this.subscription = this.bookStore.updateTitle(this.bananasTitle$);
+  }
 
   updateTitle(title: string) {
     this.bookStore.updateTitle(title);
@@ -86,5 +101,9 @@ export class Book5Component {
 
   increasePageCount() {
     this.bookStore.increasePageCount();
+  }
+
+  stopBananas() {
+    this.subscription.unsubscribe();
   }
 }

@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  NgModule,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,11 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   template: `<book4 [id]="bookId"></book4>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Demo4WithIdComponent implements OnInit {
-  bookId = 4;
-  constructor() {}
-
-  ngOnInit(): void {}
+export class Demo4WithIdComponent {
+  bookId = '4';
 }
 
 @NgModule({

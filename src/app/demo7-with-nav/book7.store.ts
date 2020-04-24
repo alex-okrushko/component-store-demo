@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { tap, filter, switchMap } from 'rxjs/operators';
+import { tap, filter, switchMap, map } from 'rxjs/operators';
 import { Book } from '../models';
 import { BookService } from '../book.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 type Status = 'unsaved' | 'loading' | 'loaded';
 export interface BookState extends Book {
@@ -10,9 +12,17 @@ export interface BookState extends Book {
 }
 
 @Injectable()
-export class Book4Store extends ComponentStore<BookState> {
-  constructor(private readonly bookService: BookService) {
+export class Book7Store extends ComponentStore<BookState> {
+  constructor(
+    private readonly bookService: BookService,
+    activatedRoute: ActivatedRoute
+  ) {
     super({ pageCount: 0, status: 'unsaved' });
+
+    const bookId$: Observable<string> = activatedRoute.paramMap.pipe(
+      map((params) => params.get('bookId') || '0')
+    );
+    this.getBook(bookId$);
   }
 
   readonly title$ = this.select((state) => state.title);
@@ -46,10 +56,14 @@ export class Book4Store extends ComponentStore<BookState> {
     id,
   }));
 
-  readonly setBook = this.updater((state: BookState, book: Book) => ({
-    ...state,
-    ...book,
-  }));
+  readonly setBook = this.updater(
+    (state: BookState, { title, pageCount, author }: Book) => ({
+      ...state,
+      title,
+      pageCount,
+      author,
+    })
+  );
 
   readonly updateTitle = this.updater((state: BookState, title: string) => ({
     ...state,
@@ -79,6 +93,7 @@ export class Book4Store extends ComponentStore<BookState> {
     ids$.pipe(
       filter((id): id is string => !!id),
       tap(() => this.updateStatus('loading')),
+      tap(() => this.setBook({ pageCount: 0 })),
       switchMap((id) =>
         this.bookService.getBook(id).pipe(tap((book) => this.setBook(book)))
       ),

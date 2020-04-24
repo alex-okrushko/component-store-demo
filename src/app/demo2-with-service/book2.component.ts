@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Book2Store, ComponentState } from './book2.store';
+import { Book2Store, BookState } from './book2.store';
 
 @Component({
   selector: 'book2',
@@ -60,7 +60,7 @@ import { Book2Store, ComponentState } from './book2.store';
 })
 export class Book2Component extends Book2Store {
   @Input()
-  set book(initState: ComponentState) {
+  set book(initState: BookState) {
     this.setState(() => initState);
   }
 

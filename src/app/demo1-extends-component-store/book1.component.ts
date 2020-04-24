@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { bookTitles, authorNames } from '../fake_data';
 
-interface ComponentState {
+interface BookState {
   author: string;
   title: string;
   pageCount: number;
@@ -65,7 +65,7 @@ interface ComponentState {
   </pre
     >`,
 })
-export class Book1Component extends ComponentStore<ComponentState> {
+export class Book1Component extends ComponentStore<BookState> {
   readonly localState$ = this.state$;
 
   readonly title$ = this.select((state) => state.title);

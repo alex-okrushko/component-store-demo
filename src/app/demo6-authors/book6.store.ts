@@ -3,6 +3,7 @@ import { ComponentStore } from '@ngrx/component-store';
 import { tap, filter, switchMap } from 'rxjs/operators';
 import { Book } from '../models';
 import { BookService } from '../book.service';
+import { Author6Store } from './author6.store';
 
 type Status = 'unsaved' | 'loading' | 'loaded';
 export interface BookState extends Book {
@@ -11,8 +12,16 @@ export interface BookState extends Book {
 
 @Injectable()
 export class Book4Store extends ComponentStore<BookState> {
-  constructor(private readonly bookService: BookService) {
+  constructor(
+    private readonly bookService: BookService,
+    private readonly author6Store: Author6Store
+  ) {
     super({ pageCount: 0, status: 'unsaved' });
+
+    this.updater((state: BookState, author: string) => ({
+      ...state,
+      author,
+    }))(this.author6Store.name$);
   }
 
   readonly title$ = this.select((state) => state.title);
@@ -46,10 +55,14 @@ export class Book4Store extends ComponentStore<BookState> {
     id,
   }));
 
-  readonly setBook = this.updater((state: BookState, book: Book) => ({
-    ...state,
-    ...book,
-  }));
+  readonly setBook = this.updater(
+    (state: BookState, { id, title, pageCount }: Book) => ({
+      ...state,
+      id,
+      title,
+      pageCount,
+    })
+  );
 
   readonly updateTitle = this.updater((state: BookState, title: string) => ({
     ...state,

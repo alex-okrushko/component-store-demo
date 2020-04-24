@@ -1,23 +1,32 @@
-import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  NgModule,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Book5Component } from './book5.component';
+import { Book7Component } from './book7.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Author5Component } from './author5.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-demo5-author',
-  template: `<author5 [id]="authorId"></author5>`,
+  selector: 'app-demo7-with-nav',
+  template: ` <button
+      *ngFor="let index of [0, 1, 2, 3, 4, 5, 6]"
+      mat-mini-fab
+      [routerLink]="['../' + index]"
+    >
+      {{ index }}
+    </button>
+    <book7></book7>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Demo5AuthorComponent {
-  authorId = '5';
-}
+export class Demo7WithNavComponent {}
 
 @NgModule({
   imports: [
@@ -27,10 +36,10 @@ export class Demo5AuthorComponent {
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    MatProgressBarModule,
     MatProgressSpinnerModule,
+    RouterModule,
   ],
-  exports: [Demo5AuthorComponent],
-  declarations: [Demo5AuthorComponent, Book5Component, Author5Component],
+  exports: [Demo7WithNavComponent],
+  declarations: [Demo7WithNavComponent, Book7Component],
 })
-export class Demo5AuthorModule {}
+export class Demo7WithNavModule {}

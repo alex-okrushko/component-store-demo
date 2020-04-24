@@ -17,14 +17,32 @@ import {
   Demo4WithIdModule,
   Demo4WithIdComponent,
 } from './demo4-with-id/demo4-with-id.component';
+import {
+  Demo5AuthorComponent,
+  Demo5AuthorModule,
+} from './demo5-author/demo5-author.component';
+import {
+  Demo6AuthorsComponent,
+  Demo6AuthorsModule,
+} from './demo6-authors/demo6-authors.component';
+import {
+  Demo7WithNavComponent,
+  Demo7WithNavModule,
+} from './demo7-with-nav/demo7-with-nav.component';
+import {
+  Demo8WithObservableComponent,
+  Demo8WithObservableModule,
+} from './demo8-with-observable/demo8-with-observable.component';
 
 const routes: Routes = [
   { path: 'demo1', component: Demo1ExtendsComponentStoreComponent },
   { path: 'demo2', component: Demo2WithServiceComponent },
   { path: 'demo3', component: Demo3WithServiceProvidedComponent },
   { path: 'demo4', component: Demo4WithIdComponent },
-  { path: 'demo5', component: ChooserComponent },
-  { path: 'demo6', component: ChooserComponent },
+  { path: 'demo5', component: Demo5AuthorComponent },
+  { path: 'demo6', component: Demo6AuthorsComponent },
+  { path: 'demo7/:bookId', component: Demo7WithNavComponent },
+  { path: 'demo8', component: Demo8WithObservableComponent },
   {
     path: 'choose',
     component: ChooserComponent,
@@ -44,6 +62,10 @@ const routes: Routes = [
     Demo2WithServiceModule,
     Demo3WithServiceProvidedModule,
     Demo4WithIdModule,
+    Demo5AuthorModule,
+    Demo6AuthorsModule,
+    Demo7WithNavModule,
+    Demo8WithObservableModule,
   ],
   exports: [RouterModule],
 })

@@ -1,7 +1,18 @@
-export interface Author {
-  authorId: string;
-  name: string;
-  bookIds: [];
+export const authorBookMap: { [authorId: string]: string[] } = {
+  '0': ['0'],
+  '1': ['1'],
+  '2': ['2'],
+  '3': ['3'],
+  '4': ['4'],
+  '5': ['5', '6'],
+  '6': ['6', '7', '8'],
+};
+
+export function getAuthorName(bookId: string) {
+  const entry = Object.entries(authorBookMap).find(([, bookIds]) =>
+    bookIds.includes(bookId)
+  )!;
+  return authorNames[Number(entry[0])];
 }
 
 export const bookTitles = [

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 
-export interface ComponentState {
+export interface BookState {
   author?: string;
   title?: string;
   pageCount: number;
 }
 
 @Injectable()
-export class Book3Store extends ComponentStore<ComponentState> {
+export class Book3Store extends ComponentStore<BookState> {
   constructor() {
     super({ pageCount: 0 });
   }
@@ -38,7 +38,7 @@ export class Book3Store extends ComponentStore<ComponentState> {
     );
   }
 
-  setBook(book: ComponentState) {
+  setBook(book: BookState) {
     this.setState(() => book);
   }
 

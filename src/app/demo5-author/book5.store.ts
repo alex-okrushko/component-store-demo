@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { tap, filter, switchMap } from 'rxjs/operators';
-import { Book } from './model';
-import { Book5Service } from './book5.service';
+import { Book } from '../models';
+import { BookService } from '../book.service';
+import { Author5Store } from './author5.store';
 
 type Status = 'unsaved' | 'loading' | 'loaded';
-export interface ComponentState extends Book {
+export interface BookState extends Book {
   status: Status;
 }
 
 @Injectable()
-export class Book4Store extends ComponentStore<ComponentState> {
-  constructor(private readonly book4Service: Book5Service) {
+export class Book4Store extends ComponentStore<BookState> {
+  constructor(
+    private readonly bookService: BookService,
+    private readonly author5Store: Author5Store
+  ) {
     super({ pageCount: 0, status: 'unsaved' });
+
+    this.updater((state: BookState, author: string) => ({
+      ...state,
+      author,
+    }))(this.author5Store.name$);
   }
 
   readonly title$ = this.select((state) => state.title);
@@ -41,25 +50,27 @@ export class Book4Store extends ComponentStore<ComponentState> {
     );
   }
 
-  readonly setBookId = this.updater((state: ComponentState, id?: string) => ({
+  readonly setBookId = this.updater((state: BookState, id?: string) => ({
     ...state,
     id,
   }));
 
-  readonly setBook = this.updater((state: ComponentState, book: Book) => ({
-    ...state,
-    ...book,
-  }));
-
-  readonly updateTitle = this.updater(
-    (state: ComponentState, title: string) => ({
+  readonly setBook = this.updater(
+    (state: BookState, { id, title, pageCount }: Book) => ({
       ...state,
+      id,
       title,
+      pageCount,
     })
   );
 
+  readonly updateTitle = this.updater((state: BookState, title: string) => ({
+    ...state,
+    title,
+  }));
+
   readonly updatePageCount = this.updater(
-    (state: ComponentState, pageCount: string) => ({
+    (state: BookState, pageCount: string) => ({
       ...state,
       pageCount: Number(pageCount),
     })
@@ -71,7 +82,7 @@ export class Book4Store extends ComponentStore<ComponentState> {
   }));
 
   private readonly updateStatus = this.updater(
-    (state: ComponentState, status: Status) => ({
+    (state: BookState, status: Status) => ({
       ...state,
       status,
     })
@@ -79,10 +90,10 @@ export class Book4Store extends ComponentStore<ComponentState> {
 
   readonly getBook = this.effect<string | undefined>((ids$) =>
     ids$.pipe(
-      filter((id): id is string => id != null),
+      filter((id): id is string => !!id),
       tap(() => this.updateStatus('loading')),
       switchMap((id) =>
-        this.book4Service.getBook(id).pipe(tap((book) => this.setBook(book)))
+        this.bookService.getBook(id).pipe(tap((book) => this.setBook(book)))
       ),
       tap(() => this.updateStatus('loaded'))
     )

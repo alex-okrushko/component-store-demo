@@ -10,7 +10,7 @@ export interface BookState extends Book {
 }
 
 @Injectable()
-export class Book4Store extends ComponentStore<BookState> {
+export class Book8Store extends ComponentStore<BookState> {
   constructor(private readonly bookService: BookService) {
     super({ pageCount: 0, status: 'unsaved' });
   }
